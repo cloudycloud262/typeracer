@@ -1,0 +1,20 @@
+.text {
+  border-bottom: 2px solid;
+  padding-bottom: 0.8rem;
+  user-select: none;
+}
+.text > span {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.true {
+  background-color: #a0ffa0;
+}
+.false {
+  background-color: #ff8b8b;
+}
+.vkeyInput {
+  width: 0;
+  border: none;
+  padding: 0;
+}

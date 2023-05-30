@@ -1,0 +1,60 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 2rem;
+  background-color: white;
+  filter: drop-shadow(0px 0px 2px grey);
+  flex-shrink: 0;
+}
+.title {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: default;
+}
+.title > span {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.nav {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+}
+.navItem {
+  color: black;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: flex-end;
+  line-height: 1rem;
+  position: relative;
+  gap: 0.25rem;
+  text-decoration: none;
+}
+.navItem > span:nth-child(1) {
+  font-size: 1.2rem;
+}
+.navItem::before {
+  transition: 0.15s transform;
+  content: "";
+  width: 100%;
+  position: absolute;
+  height: 1.5px;
+  background-color: black;
+  bottom: -1px;
+  transform: scaleX(0);
+}
+.navItem:hover::before {
+  transform: scaleX(1);
+}
+@media (width<300px) {
+  .title > span {
+    display: none;
+  }
+  .leaveBtn > span:nth-child(2) {
+    display: none;
+  }
+}

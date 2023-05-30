@@ -1,0 +1,47 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+}
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+a {
+  outline: none;
+}
+button {
+  outline: none;
+  background-color: transparent;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  transition-property: color, background-color, border;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 2px solid;
+  border-radius: 0.3rem;
+}
+button:hover:not(.disabled-btn) {
+  background-color: black;
+  color: white;
+  border: 2px solid black;
+}
+
+main {
+  padding: 1.5rem 2rem;
+}
+
+.card {
+  background-color: white;
+  padding: 0.7rem 1rem;
+  filter: drop-shadow(0px 0px 1px rgb(39, 39, 39));
+  border-radius: 0.3rem;
+  height: fit-content;
+}
+
+@media (width<400px) {
+  main {
+    padding: 1.5rem 1rem;
+  }
+}

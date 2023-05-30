@@ -1,0 +1,31 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+.title {
+  font-weight: 700;
+  font-size: 8rem;
+  position: relative;
+}
+.title::before {
+  content: "Page Not Found";
+  font-size: 0.8rem;
+  font-weight: 500;
+  background-color: black;
+  color: white;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.2rem;
+  position: absolute;
+  bottom: 36px;
+  left: 82px;
+  transform: rotate(12deg);
+}
+.navigateBtn {
+  font-weight: 600;
+  padding: 0.6rem 0;
+  box-shadow: 2px 2px 1px;
+  width: min(250px, 90vw);
+}

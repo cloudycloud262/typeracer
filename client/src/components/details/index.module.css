@@ -1,0 +1,22 @@
+.details {
+  transition: 0.15s;
+  transform-origin: top;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.yesDetails {
+  transform: scaleY(1);
+}
+.noDetails {
+  transform: scaleY(0);
+}
+.details > header {
+  font-weight: 500;
+  font-size: 1.25rem;
+  border-bottom: 2px solid;
+}
+.details > div {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
