@@ -27,6 +27,17 @@ button:hover:not(.disabled-btn) {
   color: white;
   border: 2px solid black;
 }
+.disabled-btn {
+  background-color: gainsboro;
+  border: 2px solid gainsboro;
+  color: grey;
+}
+
+input {
+  outline: none;
+  font-family: "Poppins", sans-serif;
+  transition: 0.2s border;
+}
 
 main {
   padding: 1.5rem 2rem;

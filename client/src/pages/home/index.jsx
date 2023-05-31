@@ -1,13 +1,43 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import socket from "../../socket";
 
 import styles from "./index.module.css";
 
 export default function Home() {
   const navigate = useNavigate();
+  const [username, setUsername] = React.useState(
+    localStorage.getItem("typeracer-username") || ""
+  );
+  const [_bool, setBool] = React.useState(0); //Only to force rerender on saving username
 
   return (
     <main className={styles.main}>
+      <div className={`${styles.card} ${styles.username}`}>
+        <input
+          type="text"
+          placeholder="Enter Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          maxLength={40}
+        />
+        <button
+          className={`${
+            username === localStorage.getItem("typeracer-username")
+              ? "disabled-btn"
+              : ""
+          }`}
+          onClick={() => {
+            if (username !== localStorage.getItem("typeracer-username")) {
+              localStorage.setItem("typeracer-username", username);
+              setBool((prev) => !prev);
+              socket.emit("add-player", username);
+            }
+          }}
+        >
+          Save
+        </button>
+      </div>
       <div className={`${styles.card} ${styles.race}`}>
         <div>
           <h3>Play Globally</h3>

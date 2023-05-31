@@ -14,7 +14,8 @@ export default function Header() {
         <span>Typeracer</span>
       </div>
       <nav className={styles.nav}>
-        {location.pathname === "/practice" ? (
+        {location.pathname === "/practice" ||
+        location.pathname === "/global" ? (
           <Link to="/" className={`${styles.navItem} ${styles.leaveBtn}`}>
             <span className="material-icons-outlined">logout</span>
             <span>Leave</span>

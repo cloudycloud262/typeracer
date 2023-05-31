@@ -1,0 +1,26 @@
+.leaderBoard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.lbHeader {
+  font-weight: 500;
+  font-size: 1.25rem;
+  border-bottom: 2px solid;
+}
+.table {
+  display: grid;
+  grid-template-columns: auto auto;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background-color: grey;
+  gap: 2px;
+  border: 2px solid grey;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+.table > div {
+  padding: 0.3rem;
+  background-color: white;
+  text-align: center;
+}
