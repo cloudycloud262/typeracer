@@ -196,7 +196,9 @@ export default function Friendly(props) {
         {status === 2 ? (
           <div className={pstyles.url}>
             Share this url to invite :{" "}
-            <Link>http://localhost:3000/friendly/{roomId}</Link>
+            <Link>
+              {location.href}/{roomId}
+            </Link>
           </div>
         ) : null}
       </div>

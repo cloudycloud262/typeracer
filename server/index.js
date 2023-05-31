@@ -2,13 +2,13 @@ const express = require("express");
 const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
-
+require("dotenv").config();
 const paragraphs = require("./public/paragraphs.json");
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: { origin: "http://localhost:3000" },
+  cors: { origin: process.env.FRONTEND_URL },
 });
 
 let currGlobalRoom = null;
@@ -16,7 +16,7 @@ let openGlobalRoom = new Set();
 let friendlyRooms = new Map();
 let players = new Map();
 
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: process.env.FRONTEND_URL }));
 
 const getRoom = (it) => {
   it.next();
@@ -138,6 +138,4 @@ io.on("connection", (socket) => {
 
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () =>
-  console.log(`Server Running on Port: http://localhost:${PORT}`)
-);
+server.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`));
