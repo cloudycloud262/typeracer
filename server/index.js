@@ -13,6 +13,7 @@ const io = new Server(server, {
 
 let currGlobalRoom = null;
 let openGlobalRoom = new Set();
+let friendlyRooms = new Map();
 let players = new Map();
 
 app.use(cors({ origin: "http://localhost:3000" }));
@@ -29,18 +30,29 @@ const joinRoom = (socket, room) => {
       pl,
       players.get(pl),
     ]),
-    paragraph: paragraphs[room % 200],
+    paragraph: Number.isInteger(room)
+      ? paragraphs[room % 200]
+      : paragraphs[room.split("-")[room.split("-").length - 1] % 200],
   });
   socket.to(room).emit("player-joined", [socket.id, players.get(socket.id)]);
 };
 const leaveRoom = (socket) => {
   const room = getRoom(socket.rooms.values());
   socket.to(room).emit("player-removed", socket.id);
-  const bool = openGlobalRoom.has(room);
-  if (bool && io.sockets.adapter.rooms.get(room)?.size === 1) {
-    openGlobalRoom.delete(room);
-  } else if (room && room !== currGlobalRoom && !bool) {
-    openGlobalRoom.add(room);
+  if (typeof room === "string") {
+    if (
+      friendlyRooms.get(room) &&
+      io.sockets.adapter.rooms.get(room)?.size === 1
+    ) {
+      friendlyRooms.delete(room);
+    }
+  } else {
+    const bool = openGlobalRoom.has(room);
+    if (bool && io.sockets.adapter.rooms.get(room)?.size === 1) {
+      openGlobalRoom.delete(room);
+    } else if (room && room !== currGlobalRoom && !bool) {
+      openGlobalRoom.add(room);
+    }
   }
 };
 
@@ -69,6 +81,32 @@ io.on("connection", (socket) => {
         joinRoom(socket, currGlobalRoom);
       }
     }
+  });
+  socket.on("create-friendly", (username) => {
+    players.set(socket.id, username);
+    const url = `${socket.id}-${new Date().getTime()}`;
+    socket.join(url);
+    socket.emit("friendly-created", {
+      url,
+      paragraph: paragraphs[url.split("-")[url.split("-").length - 1] % 200],
+    });
+  });
+  socket.on("join-friendly", ({ url, username }) => {
+    players.set(socket.id, username);
+    if (
+      io.sockets.adapter.rooms.get(url)?.size < 4 &&
+      !friendlyRooms.get(url)
+    ) {
+      socket.join(url);
+      joinRoom(socket, url);
+    } else {
+      socket.emit("room-capacity-full");
+    }
+  });
+  socket.on("friendly-start-countdown", (room) => {
+    socket.emit("friendly-start-countdown");
+    socket.to(room).emit("friendly-start-countdown");
+    friendlyRooms.set(room, 1);
   });
   socket.on("set-progress", (obj) => {
     socket
